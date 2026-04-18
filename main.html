@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FS</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Lalezar&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+</head>
+<body>    
+
+<div class="button-for-music-container">
+<button id="button_for_music" ontouchstart=""><svg class="play-icon" viewBox="0 0 24 24"><path d="M8 6.82v10.36c0 .79.87 1.27 1.54.84l8.14-5.18c.62-.39.62-1.29 0-1.69L9.54 5.98C8.87 5.55 8 6.03 8 6.82z"/></svg></button>
+<div class="volume-control-pc">
+<svg class="volume-icon" viewBox="0 0 24 24">
+<path fill="white" d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/>
+</svg>
+<input type="range" id="volume_slider" min="0" max="1" step="0.01" value="0.5">
+</div>
+</div>
+
+<div class="style-container">
+
+
+
+
+
+<div class="ms-slides app-info">
+    <button id="info_tracklist_button" class="tracklist-button">
+<svg viewBox="0 0 24 24" class="tracklist-icon"><path fill="currentColor" d="M4 7h16v2H4V7zm0 4h16v2H4v-2zm0 4h10v2H4v-2z"/></svg>
+        Tracklist
+    </button>
+
+    <div class="info-content-block">
+        <p class="icb-text">The app uses pre-loaded direct links from cloud storage</p>
+        <p class="icb-text">All copyrights to audio materials belong to their rightful owners. This application does not claim ownership of the content.</p>
+        <p class="icb-text">Most of the art was used from the source: <a href="https://www.instagram.com/picasso_polk" target="_blank" style="color: aqua; text-decoration: none;">@picasso_polk</a></p>
+
+        <div class="icb-footer">
+            <p>Version 0.1</p>
+        </div>
+    </div>
+</div>
+
+<div class="ms-slides s1"></div>
+<div class="ms-slides s2"></div>
+<div class="ms-slides s3"></div>
+<div class="ms-slides s4"></div>
+<div class="ms-slides s5"></div>
+</div>
+
+<div id="music_styles_label"><span id="msl_style_text">LOFI CHILL</span>
+<button class="button-additional-functions"><span></span><span></span><span></span></button>
+</div>
+
+<div class="navigation-dots">
+    <div class="dot active"></div>
+    <div class="dot"></div>
+    <div class="dot"></div>
+    <div class="dot"></div>
+    <div class="dot"></div>
+</div>
+
+
+
+/* ~ ~ ~ ~ ~ Musical styles ~ ~ ~ ~ ~ */
+
+<div id="tracklist_modal" class="modal-overlay"><div class="modal-content"><div class="modal-header"><h2>Tracklist</h2><button id="close_modal_btn">&times;</button></div>
+<div class="modal-body"><div class="playlist-category">
+<h3 class="category-title">Seasson</h3><div class="category-list">
+            
+<label class="custom-checkbox-wrapper"><span class="checkbox-label">LOFI CHILL</span>
+<input type="checkbox" id="check_chill" checked><span class="custom-checkbox"></span>
+</label>
+
+<label class="custom-checkbox-wrapper"><span class="checkbox-label">LOFI FOCUS</span>
+<input type="checkbox" id="check_lofi_focus" checked><span class="custom-checkbox"></span>
+</label>
+
+<label class="custom-checkbox-wrapper"><span class="checkbox-label">LOFI GAMEING</span>
+<input type="checkbox" id="check_lofi_gameing" checked><span class="custom-checkbox"></span>
+</label>
+
+<label class="custom-checkbox-wrapper"><span class="checkbox-label">PHONK</span>
+<input type="checkbox" id="check_phonk" checked><span class="custom-checkbox"></span>
+</label>
+
+<label class="custom-checkbox-wrapper"><span class="checkbox-label">LOFI HIP-HOP</span>
+<input type="checkbox" id="check_hiphop" checked><span class="custom-checkbox"></span>
+</label>
+
+<label class="custom-checkbox-wrapper"><span class="checkbox-label">LOFI FANTASY</span>
+<input type="checkbox" id="check_fantasy" checked><span class="custom-checkbox"></span>
+</label>
+
+<label class="custom-checkbox-wrapper"><span class="checkbox-label">CYBERPUNK</span>
+<input type="checkbox" id="check_cyberpunk" checked><span class="custom-checkbox"></span>
+</label>
+
+</div>
+</div>
+
+    
+
+<div class="playlist-category"><h3 class="category-title">The Witcher: Relaxing background music</h3><div class="category-list">
+            
+<label class="custom-checkbox-wrapper"><span class="checkbox-label">The Witcher: Original relax</span>
+<input type="checkbox" id="check_witcher_orig" checked><span class="custom-checkbox"></span>
+</label>
+
+<label class="custom-checkbox-wrapper"><span class="checkbox-label">The Witcher: LOFI REMIX</span>
+<input type="checkbox" id="check_witcher_lofi" checked><span class="custom-checkbox"></span>
+</label>
+
+</div>
+</div>
+</div>
+
+<audio id="source_reproductions" src="http://usa9.fastcast4u.com/proxy/jamz?mp=/1" type="audio/mpeg"></audio>
+
+<script src="script.js"></script>
+</body>
+</html>

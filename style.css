@@ -1,0 +1,695 @@
+html, body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    overscroll-behavior-y: none;
+}
+
+.button-for-music-container {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 10;                                       /* Поменять в будущем */
+    
+    width: 120px;
+    height: 120px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#button_for_music {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    outline: none;
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
+    border: none;
+    background: none;
+    cursor: pointer;
+    padding: 0;
+    transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    overflow: hidden;
+    backdrop-filter: blur(2px) saturate(160%) brightness(1);
+    box-shadow: rgba(255, 218, 42, 0.1) -1.996px 2.391px 18.109px -2.622px inset,
+    rgb(255 255 255 / 40%) -5.73px -4px 3.36px -2.73px inset,
+    rgba(255, 255, 255, 0.3) 6.671px 6.671px 3.363px -6.214px inset,
+    rgb(255 255 255 / 50%) 0px 1px 12.2px -5px inset,
+    rgb(255 255 255 / 40%) -6.727px -6.727px 3.363px -6.727px inset,
+    rgba(255, 255, 255, 0.3) 6.671px 6.671px 3.363px -6.214px inset;
+}
+
+#button_for_music .play-icon {
+    position: relative;
+    z-index: 2;
+    width: 80px;
+    height: 80px;
+}
+
+/* Анимация нажатия */
+#button_for_music:active {
+    transform: scale(0.92) translateY(2px);
+}
+
+/* Иконка Play/Pause внутри кнопки */
+#button_for_music .play-icon {
+    position: relative;
+    z-index: 2; /* Убедимся, что иконка над всеми слоями стекла */
+}
+
+/* Интерактивность */
+#button_for_music:hover {
+    transform: scale(1.05); /* Легкое увеличение при наведении */
+}
+
+#button_for_music:active {
+    transform: scale(0.92) translateY(2px); /* Эффект физического нажатия вниз */
+}
+
+
+
+
+
+
+
+
+#button_for_music:active {
+    transform: scale(0.94);
+    transition: transform 0.08s ease-out;
+}
+
+.play-icon{
+    width: 160px;
+    height: 160px;
+    fill: rgba(255, 255, 255, 0.9); 
+    filter: drop-shadow(2px 4px 3px rgba(0, 0, 0, 0.144));
+    transition: transform 0.3s ease;
+}
+
+.play-icon rect {
+    transition: d 0.3s ease;
+}
+
+.style-container {
+    display: flex;
+    width: 500%;
+    height: 100%;
+    touch-action: pan-y;
+    will-change: transform;
+    transform: translateZ(0);
+    transition: transform 0.5s ease;
+}
+
+.ms-slides {
+    width: 20%;
+    height: 100vh;
+    flex-shrink: 0;
+    background-size: cover; 
+    background-position: center; 
+    background-repeat: no-repeat;
+}
+
+.app-info {
+background-color: hsl(0 0 20)
+}
+
+.ms-slides.img-lofi-chill { background-image: url('data/img/img-lofi-chill.webp'); }
+.ms-slides.img-lofi-focus { background-image: url('data/img/img-lofi-focus.webp'); }
+.ms-slides.img-lofi-gameing { background-image: url('data/img/img-lofi-gameing.webp'); }
+.ms-slides.img-phonk { background-image: url('data/img/img-phonk.webp'); }
+.ms-slides.img-lofi-hip-hop { background-image: url('data/img/img-lofi-hip-hop.webp'); }
+.ms-slides.img-lofi-fantasy { background-image: url('data/img/img-lofi-fantasy.webp'); }
+.ms-slides.img-cyberpunk { background-image: url('data/img/img-cyberpunk.webp'); }
+.ms-slides.img-the-witcher-original-relax { background-image: url('data/img/img-the-witcher-original-relax.webp'); }
+.ms-slides.img-the-witcher-lofi-remix { background-image: url('data/img/img-the-witcher-lofi-remix.webp'); }
+
+
+img-lofi-fantasy
+
+
+
+img-lofi-hip-hiphop
+
+
+
+
+
+
+
+
+
+
+.s.lofi-chill { 
+background-image: url('data/img/s.lofi-chill.png');
+background-size: cover;
+background-position: center;
+
+}
+
+
+
+.s.lofi-focus { background-image: url('data/img/s.lofi-focus.png') }
+.s3 { background-image: url('data/img/s03.png') }
+.s4 { background-image: url('data/img/s04.png') }
+.s5 { background-image: url('data/img/s05.png') }
+
+
+
+#music_styles_label {
+    position: fixed;
+    top: 4%;
+    left: 5%;
+    right: 5%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    pointer-events: none;
+}
+
+#music_styles_label, #button_for_music, #nav_dots, .volume-control-pc {
+    transition: opacity 0.2s ease-out;
+}
+
+#msl_style_text {
+    font-family: "Lalezar", sans-serif;
+    font-size: 42px;
+    font-weight: 900;
+    line-height: 1.1;
+    color: #ffffff;
+    text-transform: uppercase;
+    mix-blend-mode: overlay;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.button-additional-functions {
+    width: 42px;
+    height: 42px;
+    flex-shrink: 0;
+    align-self: flex-start;
+    margin-top: 8px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 3px;
+    cursor: pointer;
+    pointer-events: auto;
+    padding: 0;
+    -webkit-tap-highlight-color: transparent;
+    outline: none;
+}
+
+.button-additional-functions span {
+    width: 4px;
+    height: 4px;
+    background: white;
+    border-radius: 50%;
+}
+
+.volume-control-pc {
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    margin-top: 25px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+    border: none;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(1px);
+    padding: 12px 25px;
+    border-radius: 40px;
+    width: max-content;
+    backdrop-filter: blur(4px) saturate(160%) brightness(1);
+    box-shadow: rgba(255, 218, 42, 0.1) -1.996px 2.391px 18.109px -2.622px inset,
+    rgb(255 255 255 / 40%) -5.73px -4px 3.36px -2.73px inset,
+    rgba(255, 255, 255, 0.3) 6.671px 6.671px 3.363px -6.214px inset,
+    rgb(255, 255, 255) 0px 1px 12.2px -5px inset,
+    rgba(255, 255, 255, 0.747) -6.727px -6.727px 3.363px -6.727px inset,
+    rgb(255, 255, 255) 6.671px 6.671px 3.363px -6.214px inset;
+
+
+
+}
+
+.volume-icon {
+    width: 20px;
+    height: 20px;
+    opacity: 0.8;
+}
+
+/* Убиваем стандартный вид ползунка */
+#volume_slider {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 100px; /* Длина ползунка */
+    height: 4px;
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 2px;
+    outline: none;
+    cursor: pointer;
+}
+
+/* Стилизуем "кружок" за который тянешь */
+#volume_slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background: #ffffff;
+    cursor: pointer;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+    transition: transform 0.2s;
+}
+
+#volume_slider::-webkit-slider-thumb:hover {
+    transform: scale(1.2); /* Кружок чуть увеличивается при наведении */
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* Основной фон левого слайда */
+.app-info {
+    background-color: hsl(0 0 10);
+    display: flex;
+    flex-direction: column;
+    padding: 40px 20px;
+    box-sizing: border-box;
+}
+
+.tracklist-button {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    width: 100%;
+    max-width: 500px;
+    box-sizing: border-box;
+    margin: 0 auto;
+    margin-bottom: 30px;
+    background: none;
+    border: none;
+    color: white;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+    font-family: inherit;
+    padding: 0;
+    gap: 15px;
+    outline: none;
+    -webkit-tap-highlight-color: transparent;
+    font-family: "Roboto", sans-serif;
+    font-size: 30px;
+}
+
+.tracklist-icon {
+    width: 50px;
+    height: 50px;
+    background-color: hsl(0 0 15); 
+    border-radius: 50%;
+    padding: 10px;
+    box-sizing: border-box;
+    flex-shrink: 0;
+    transition: transform 0.1s ease-out;
+}
+
+.tracklist-icon:active {
+    background-color: hsl(0 0 14); 
+    transform: scale(0.85);
+}
+
+.info-content-block {
+    flex-grow: 1;
+    width: 100%; 
+    max-width: 500px;
+    box-sizing: border-box;
+    margin: 0 auto;
+    margin-bottom: 30px;
+    background-color: hsl(0 0 15);
+    box-shadow: 0px 10px 5px rgba(0, 0, 0, 0.1);
+    border-radius: 20px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: white;
+    text-align: center;
+    user-select: none;
+}
+
+.icb-text {
+    font-family: "Roboto", sans-serif;
+    font-size: 14px;
+    opacity: 0.7;
+    margin-bottom: 10px;
+}
+
+.icb-footer {
+    font-family: "Roboto", sans-serif;
+    margin-top: auto;
+    font-size: 14px;
+    opacity: 0.4;
+}
+
+.navigation-dots {
+    position: fixed;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 12px;
+    z-index: 10;
+    pointer-events: none;
+}
+
+.dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    transition: all 0.3s ease;
+}
+
+.dot.active {
+    width: 6px;
+    border-radius: 4px;
+    background: rgba(255, 255, 255, 0.9);
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* === СТИЛИ МОДАЛЬНОГО ОКНА === */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(3px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+}
+
+.modal-overlay.active {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.modal-content {
+    background: hsl(0 0 10);
+    border: 1px solid hsl(0 0 15);
+    border-radius: 20px;
+    width: 85%;
+    max-width: 380px;
+    padding: 25px;
+    color: white;
+    font-family: "Roboto", sans-serif;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+    transform: scale(0.9);
+    transition: transform 0.3s ease;
+}
+
+.modal-overlay.active .modal-content {
+    transform: scale(1); /* Легкий эффект увеличения при открытии */
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+}
+
+.modal-header h2 {
+    margin: 0;
+    font-size: 22px;
+    font-family: 'Lalezar', cursive;
+    letter-spacing: 1px;
+}
+
+#close_modal_btn {
+    background: none;
+    border: none;
+    color: rgba(255,255,255,0.6);
+    font-size: 32px;
+    line-height: 1;
+    cursor: pointer;
+    outline: none;
+    padding: 0;
+    -webkit-tap-highlight-color: transparent;
+    transition: color 0.2s;
+}
+
+#close_modal_btn:active {
+    color: white;
+}
+
+.track-option {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    font-size: 16px;
+    line-height: 1.4;
+}
+
+.track-option:last-child {
+    border-bottom: none;
+}
+
+/* === СТИЛИ СПИСКА И КВАДРАТНЫХ ГАЛОЧЕК === */
+.custom-checkbox-wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.custom-checkbox-wrapper:last-child {
+    border-bottom: none;
+}
+
+.checkbox-label {
+    font-size: 16px;
+    line-height: 1.4;
+    padding-right: 15px; 
+    color: rgba(255, 255, 255, 0.9);
+}
+
+/* Прячем стандартный системный чекбокс */
+.custom-checkbox-wrapper input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+}
+
+/* Рисуем свой квадратный чекбокс */
+.custom-checkbox {
+    position: relative;
+    height: 24px;
+    width: 24px;
+    background-color: rgba(255, 255, 255, 0.1);
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-radius: 6px; /* Легкое закругление углов */
+    transition: all 0.2s ease;
+    flex-shrink: 0;
+}
+
+/* Активное состояние (когда нажато) */
+.custom-checkbox-wrapper input:checked ~ .custom-checkbox {
+    background-color: #007AFF; /* Синий цвет Telegram. Можешь заменить на свой */
+    border-color: #007AFF;
+}
+
+/* Рисуем саму белую галочку */
+.custom-checkbox:after {
+    content: "";
+    position: absolute;
+    display: none; /* Скрыта по умолчанию */
+    left: 7px;
+    top: 3px;
+    width: 5px;
+    height: 10px;
+    border: solid white;
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+}
+
+/* Показываем галочку при активном input */
+.custom-
+rapper input:checked ~ .custom-checkbox:after {
+    display: block;
+}
+
+
+
+
+
+
+
+
+/* === СТИЛИ КАТЕГОРИЙ ПЛЕЙЛИСТА === */
+.playlist-category {
+    margin-bottom: 30px;
+}
+
+.playlist-category:last-child {
+    margin-bottom: 0;
+}
+
+.category-title {
+    font-size: 20px;
+    color: white;
+    font-weight: bold;
+    margin: 0 0 15px 0;
+    letter-spacing: 0.5px;
+    display: flex; 
+    align-items: flex-start; /* Выравниваем по верхнему краю вместо center */
+    line-height: 1.3; /* Делаем межстрочный интервал аккуратным */
+}
+
+.category-title::before {
+    content: "●";
+    margin-right: 12px;
+    font-size: 0.9em; /* Чуть уменьшили точку для элегантности */
+    color: white;
+    margin-top: 3px; /* Слегка опускаем точку, чтобы она визуально была по центру первой строки */
+}
+
+.category-list {
+    background-color: transparent; /* Без фона */
+    padding: 0;
+    border-radius: 0;
+}
+
+/* === ОБНОВЛЕНИЕ ГАЛОЧЕК (БЕЗ ЛИНИЙ И ФОНА) === */
+/* Прячем стандартный чекбокс */
+.custom-checkbox-wrapper input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+}
+
+
+.custom-checkbox {
+    position: relative;
+    height: 20px;
+    width: 20px;
+    background-color: hsl(0 0 20);
+    border: none;
+    border-radius: 6px;
+    transition: all 0.2s ease;
+    flex-shrink: 0;
+}
+
+/* Активное состояние — синий фон */
+.custom-checkbox-wrapper input:checked ~ .custom-checkbox {
+    background-color: hsl(0 0 20);
+    box-shadow: 0 0 5px hsl(0 0 25);
+}
+
+
+.custom-checkbox:after {
+    content: "";
+    position: absolute;
+    display: none;
+    left: 50%;
+    top: 50%;
+    width: 5px;
+    height: 10px;
+    border: solid white;
+    border-width: 0 2px 2px 0;
+    /* Идеальное центрирование галочки */
+    transform: translate(-50%, -55%) rotate(45deg);
+}
+
+.custom-checkbox-wrapper input:checked ~ .custom-checkbox:after {
+    display: block;
+}
+
+/* Визуал для заблокированной (последней) галочки */
+.custom-checkbox-wrapper input:disabled ~ .custom-checkbox {
+    opacity: 0.4;
+    cursor: not-allowed;
+}
