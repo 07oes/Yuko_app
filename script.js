@@ -261,3 +261,13 @@ masterStations.forEach(station => {
 });
 
 buildPlaylist();
+
+window.addEventListener('resize', () => {
+    // Пересчитываем координаты под новую ширину окна
+    currentTranslate = currentIndex * -window.innerWidth;
+    prevTranslate = currentTranslate;
+    
+    // Моментально ставим активный слайд по центру, без плавной анимации
+    style_container.style.transition = 'none';
+    style_container.style.transform = `translate3d(${currentTranslate}px, 0, 0)`;
+});
