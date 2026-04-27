@@ -1,10 +1,21 @@
-html, body {
+html,
+body {
     margin: 0;
     padding: 0;
     width: 100%;
     height: 100%;
     overflow: hidden;
     overscroll-behavior-y: none;
+    -webkit-tap-highlight-color: transparent;
+}
+
+/* Общие стили для кнопок */
+button, 
+.button-additional-functions,
+.tracklist-button {
+    outline: none;
+    cursor: pointer;
+    user-select: none;
 }
 
 .button-for-music-container {
@@ -28,14 +39,10 @@ html, body {
     width: 100px;
     height: 100px;
     border-radius: 50%;
-    outline: none;
-    user-select: none;
-    -webkit-tap-highlight-color: transparent;
     border: none;
     background: none;
-    cursor: pointer;
     padding: 0;
-    transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.3s ease, background 0.3s ease, border 0.3s ease;
     overflow: hidden;
     backdrop-filter: blur(2px) saturate(160%) brightness(1);
     box-shadow: rgba(255, 218, 42, 0.1) -1.996px 2.391px 18.109px -2.622px inset,
@@ -46,22 +53,47 @@ html, body {
     rgba(255, 255, 255, 0.3) 6.671px 6.671px 3.363px -6.214px inset;
 }
 
-#button_for_music .play-icon {
+#button_for_music.style-dark,
+.volume-control-pc.style-dark {
+    background: rgba(0, 0, 0, 0.6);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5), inset 0 2px 10px rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(5px);
+}
+
+#button_for_music.style-neon,
+.volume-control-pc.style-neon {
+    background: rgba(10, 10, 10, 0.8);
+    box-shadow: 0 0 20px rgba(0, 255, 255, 0.6), inset 0 0 15px rgba(0, 255, 255, 0.4);
+    border: 2px solid rgba(0, 255, 255, 0.8);
+}
+
+#button_for_music:active {
+    transform: scale(0.92) translateY(2px);
+    transition: transform 0.1s ease-out;
+}
+
+.play-icon {
     position: relative;
     z-index: 2;
     width: 80px;
     height: 80px;
+    fill: rgba(255, 255, 255, 0.9); 
+    filter: drop-shadow(2px 4px 3px rgba(0, 0, 0, 0.144));
+    transition: transform 0.3s ease, fill 0.3s ease, filter 0.3s ease;
 }
 
-/* Анимация нажатия */
-#button_for_music:active {
-    transform: scale(0.92) translateY(2px);
+#button_for_music.style-dark .play-icon {
+    fill: rgba(255, 255, 255, 0.6);
+    filter: drop-shadow(2px 4px 5px rgba(0, 0, 0, 0.8));
 }
 
-/* Иконка Play/Pause внутри кнопки */
-#button_for_music .play-icon {
-    position: relative;
-    z-index: 2; /* Убедимся, что иконка над всеми слоями стекла */
+#button_for_music.style-neon .play-icon {
+    fill: #0ff;
+    filter: drop-shadow(0 0 8px #0ff);
+}
+
+.play-icon rect {
+    transition: d 0.3s ease;
 }
 
 /* Интерактивность */
@@ -69,96 +101,34 @@ html, body {
     transform: scale(1.05); /* Легкое увеличение при наведении */
 }
 
-#button_for_music:active {
-    transform: scale(0.92) translateY(2px); /* Эффект физического нажатия вниз */
-}
-
-
-
-
-
-
-
-
-#button_for_music:active {
-    transform: scale(0.94);
-    transition: transform 0.08s ease-out;
-}
-
-.play-icon{
-    width: 160px;
-    height: 160px;
-    fill: rgba(255, 255, 255, 0.9); 
-    filter: drop-shadow(2px 4px 3px rgba(0, 0, 0, 0.144));
-    transition: transform 0.3s ease;
-}
-
-.play-icon rect {
-    transition: d 0.3s ease;
-}
-
 .style-container {
     display: flex;
-    width: 500%;
+    width: max-content; /* Контейнер подстроится под кол-во слайдов */
     height: 100%;
     touch-action: pan-y;
     will-change: transform;
-    transform: translateZ(0);
-    transition: transform 0.5s ease;
+    transform: translate3d(0, 0, 0);
+    transition: transform 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
 }
 
 .ms-slides {
-    width: 20%;
-    height: 100vh;
+    width: 100vw; /* Каждый слайд строго на ширину экрана */
+    height: 100%;
     flex-shrink: 0;
+    contain: layout size; /* Оптимизация отрисовки: изолируем слайд */
     background-size: cover; 
+    background-color: hsl(0 0 10); /* Чтобы вместо белого фона была темнота */
     background-position: center; 
     background-repeat: no-repeat;
 }
 
-.app-info {
-background-color: hsl(0 0 20)
-}
-
 .ms-slides.img-lofi-chill { background-image: url('data/img/img-lofi-chill.webp'); }
-.ms-slides.img-lofi-focus { background-image: url('data/img/img-lofi-focus.webp'); }
-.ms-slides.img-lofi-gameing { background-image: url('data/img/img-lofi-gameing.webp'); }
-.ms-slides.img-phonk { background-image: url('data/img/img-phonk.webp'); }
 .ms-slides.img-lofi-hip-hop { background-image: url('data/img/img-lofi-hip-hop.webp'); }
-.ms-slides.img-lofi-fantasy { background-image: url('data/img/img-lofi-fantasy.webp'); }
+.ms-slides.img-phonk { background-image: url('data/img/img-phonk.webp'); }
 .ms-slides.img-cyberpunk { background-image: url('data/img/img-cyberpunk.webp'); }
 .ms-slides.img-the-witcher-original-relax { background-image: url('data/img/img-the-witcher-original-relax.webp'); }
 .ms-slides.img-the-witcher-lofi-remix { background-image: url('data/img/img-the-witcher-lofi-remix.webp'); }
 
-
-img-lofi-fantasy
-
-
-
-img-lofi-hip-hiphop
-
-
-
-
-
-
-
-
-
-
-.s.lofi-chill { 
-background-image: url('data/img/s.lofi-chill.png');
-background-size: cover;
-background-position: center;
-
-}
-
-
-
-.s.lofi-focus { background-image: url('data/img/s.lofi-focus.png') }
-.s3 { background-image: url('data/img/s03.png') }
-.s4 { background-image: url('data/img/s04.png') }
-.s5 { background-image: url('data/img/s05.png') }
 
 
 
@@ -170,7 +140,8 @@ background-position: center;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    pointer-events: none;
+    z-index: 100;
+    /* pointer-events: none; */ /* Убираем отсюда, чтобы кнопка была кликабельной */
 }
 
 #music_styles_label, #button_for_music, #nav_dots, .volume-control-pc {
@@ -181,19 +152,20 @@ background-position: center;
     font-family: "Lalezar", sans-serif;
     font-size: 42px;
     font-weight: 900;
-    line-height: 1.1;
+    line-height: 1; /* Уменьшаем line-height для правильного центрирования контейнера */
     color: #ffffff;
     text-transform: uppercase;
     mix-blend-mode: overlay;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+    pointer-events: none; /* Добавляем сюда, чтобы текст не мешал свайпам */
+    transition: color 0.3s ease, text-shadow 0.3s ease, -webkit-text-stroke 0.3s ease, mix-blend-mode 0.3s ease;
+    transform: translateY(3px); /* Легкая визуальная корректировка для шрифта Lalezar */
 }
 
 .button-additional-functions {
     width: 42px;
     height: 42px;
     flex-shrink: 0;
-    align-self: flex-start;
-    margin-top: 8px;
     border-radius: 50%;
     background: rgba(255, 255, 255, 0.15);
     backdrop-filter: blur(10px);
@@ -208,6 +180,12 @@ background-position: center;
     padding: 0;
     -webkit-tap-highlight-color: transparent;
     outline: none;
+    transition: transform 0.15s ease, background 0.15s ease;
+}
+
+.button-additional-functions:active {
+    transform: scale(0.9);
+    background: rgba(255, 255, 255, 0.3);
 }
 
 .button-additional-functions span {
@@ -228,27 +206,25 @@ background-position: center;
     justify-content: center;
     gap: 15px;
     border: none;
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(1px);
     padding: 12px 25px;
     border-radius: 40px;
     width: max-content;
-    backdrop-filter: blur(4px) saturate(160%) brightness(1);
+    backdrop-filter: blur(10px) saturate(160%) brightness(1);
+    -webkit-backdrop-filter: blur(10px) saturate(160%) brightness(1);
     box-shadow: rgba(255, 218, 42, 0.1) -1.996px 2.391px 18.109px -2.622px inset,
     rgb(255 255 255 / 40%) -5.73px -4px 3.36px -2.73px inset,
     rgba(255, 255, 255, 0.3) 6.671px 6.671px 3.363px -6.214px inset,
     rgb(255, 255, 255) 0px 1px 12.2px -5px inset,
     rgba(255, 255, 255, 0.747) -6.727px -6.727px 3.363px -6.727px inset,
     rgb(255, 255, 255) 6.671px 6.671px 3.363px -6.214px inset;
-
-
-
 }
 
 .volume-icon {
     width: 20px;
     height: 20px;
     opacity: 0.8;
+    fill: rgba(255, 255, 255, 0.9);
+    transition: fill 0.3s ease, filter 0.3s ease;
 }
 
 /* Убиваем стандартный вид ползунка */
@@ -296,6 +272,8 @@ background-position: center;
 
 /* Основной фон левого слайда */
 .app-info {
+    width: 100vw;
+    flex-shrink: 0;
     background-color: hsl(0 0 10);
     display: flex;
     flex-direction: column;
@@ -317,7 +295,7 @@ background-position: center;
     color: white;
     font-size: 18px;
     font-weight: bold;
-    cursor: pointer;
+    cursor: default; /* Текст больше не кликабелен */
     font-family: inherit;
     padding: 0;
     gap: 15px;
@@ -325,6 +303,7 @@ background-position: center;
     -webkit-tap-highlight-color: transparent;
     font-family: "Roboto", sans-serif;
     font-size: 30px;
+    pointer-events: none; /* Отключаем клики для всей кнопки (включая текст) */
 }
 
 .tracklist-icon {
@@ -336,6 +315,8 @@ background-position: center;
     box-sizing: border-box;
     flex-shrink: 0;
     transition: transform 0.1s ease-out;
+    pointer-events: auto; /* Включаем клики только для самой иконки */
+    cursor: pointer; /* Возвращаем курсор в виде руки для иконки */
 }
 
 .tracklist-icon:active {
@@ -395,7 +376,7 @@ background-position: center;
     backdrop-filter: blur(5px);
     -webkit-backdrop-filter: blur(5px);
     border: 1px solid rgba(255, 255, 255, 0.1);
-    transition: all 0.3s ease;
+    transition: background-color 0.3s ease, width 0.3s ease, box-shadow 0.3s ease; /* Оптимизируем переходы */
 }
 
 .dot.active {
@@ -453,37 +434,69 @@ background-position: center;
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0, 0, 0, 0.6);
-    backdrop-filter: blur(3px);
     display: flex;
     align-items: center;
     justify-content: center;
-    opacity: 0;
     pointer-events: none;
+    visibility: hidden;
+    transition: visibility 0s 0.3s;
+    z-index: 2000;
+}
+
+.modal-overlay::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    z-index: -1;
+    opacity: 0;
     transition: opacity 0.3s ease;
 }
 
 .modal-overlay.active {
-    opacity: 1;
     pointer-events: auto;
+    visibility: visible;
+    transition: visibility 0s 0s;
+}
+
+.modal-overlay.active::before {
+    opacity: 1;
 }
 
 .modal-content {
-    background: hsl(0 0 10);
-    border: 1px solid hsl(0 0 15);
+    position: relative;
+    z-index: 1;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(25px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
     border-radius: 20px;
     width: 85%;
     max-width: 380px;
     padding: 25px;
     color: white;
     font-family: "Roboto", sans-serif;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3), inset 0 0 20px rgba(255, 255, 255, 0.3);
     transform: scale(0.9);
-    transition: transform 0.3s ease;
+    opacity: 0;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+#tracklist_modal .modal-content {
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    background-color: hsl(0 0 15);
+    border: 1px solid hsl(0 0 20);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
 }
 
 .modal-overlay.active .modal-content {
     transform: scale(1); /* Легкий эффект увеличения при открытии */
+    opacity: 1;
 }
 
 .modal-header {
@@ -500,7 +513,8 @@ background-position: center;
     letter-spacing: 1px;
 }
 
-#close_modal_btn {
+#close_modal_btn,
+#close_additional_btn {
     background: none;
     border: none;
     color: rgba(255,255,255,0.6);
@@ -595,8 +609,7 @@ background-position: center;
 }
 
 /* Показываем галочку при активном input */
-.custom-
-rapper input:checked ~ .custom-checkbox:after {
+.custom-checkbox-wrapper input:checked ~ .custom-checkbox:after {
     display: block;
 }
 
@@ -692,4 +705,195 @@ rapper input:checked ~ .custom-checkbox:after {
 .custom-checkbox-wrapper input:disabled ~ .custom-checkbox {
     opacity: 0.4;
     cursor: not-allowed;
+}
+
+/* === СТИЛИ ВЫБОРА КНОПОК === */
+.button-style-options {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    gap: 10px;
+    margin-top: 15px;
+}
+
+.btn-play-style {
+    background: rgba(255, 255, 255, 0.05);
+    border: 2px solid rgba(255, 255, 255, 0.1);
+    padding: 10px;
+    border-radius: 16px;
+    transition: all 0.2s ease;
+    outline: none;
+    -webkit-tap-highlight-color: transparent;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.btn-play-style:active {
+    transform: scale(0.92);
+}
+
+.btn-play-style.active {
+    background: rgba(255, 255, 255, 0.15);
+    border-color: rgba(255, 255, 255, 0.8);
+    box-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
+}
+
+/* Миниатюры кнопок */
+.mini-play-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    border: none;
+    background: transparent;
+    backdrop-filter: blur(2px) saturate(160%) brightness(1);
+    box-shadow: rgba(255, 218, 42, 0.1) -1px 1px 9px -1px inset,
+    rgb(255 255 255 / 40%) -3px -2px 2px -1px inset,
+    rgba(255, 255, 255, 0.3) 3px 3px 2px -3px inset,
+    rgb(255 255 255 / 50%) 0px 1px 6px -2px inset,
+    rgb(255 255 255 / 40%) -3px -3px 2px -3px inset,
+    rgba(255, 255, 255, 0.3) 3px 3px 2px -3px inset;
+}
+
+.mini-play-btn.style-dark {
+    background: rgba(0, 0, 0, 0.6);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5), inset 0 1px 5px rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(5px);
+}
+
+.mini-play-btn.style-neon {
+    background: rgba(10, 10, 10, 0.8);
+    box-shadow: 0 0 10px rgba(0, 255, 255, 0.6), inset 0 0 8px rgba(0, 255, 255, 0.4);
+    border: 1px solid rgba(0, 255, 255, 0.8);
+}
+
+.mini-play-icon {
+    width: 40px;
+    height: 40px;
+    fill: rgba(255, 255, 255, 0.9);
+    filter: drop-shadow(1px 2px 2px rgba(0, 0, 0, 0.144));
+}
+
+.mini-play-btn.style-dark .mini-play-icon {
+    fill: rgba(255, 255, 255, 0.6);
+    filter: drop-shadow(1px 2px 3px rgba(0, 0, 0, 0.8));
+}
+
+.mini-play-btn.style-neon .mini-play-icon {
+    fill: #0ff;
+    filter: drop-shadow(0 0 4px #0ff);
+}
+
+/* === СТИЛИ ВЫБОРА ТЕКСТА === */
+#msl_style_text.text-style-neon {
+    color: #0ff;
+    mix-blend-mode: normal;
+    text-shadow: 0 0 8px rgba(0, 255, 255, 0.8), 0 0 20px rgba(0, 255, 255, 0.6);
+}
+
+
+
+#msl_style_text.text-style-radio {
+    color: #ffffff;
+    mix-blend-mode: normal;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    display: inline-flex;
+    align-items: center;
+}
+#msl_style_text.text-style-radio::before {
+    content: "";
+    display: block;
+    width: 15px;
+    height: 15px;
+    top: -2px;
+    background-color: #ff2a2a;
+    border-radius: 50%;
+    margin-right: 12px;
+    position: relative;
+    box-shadow: 0 0 10px #ff2a2a, 0 0 20px #ff2a2a;
+    animation: blink-radio 3s ease-in-out infinite;
+    flex-shrink: 0;
+}
+@keyframes blink-radio {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.2; transform: scale(0.85); box-shadow: 0 0 5px #ff2a2a; }
+}
+
+.btn-text-style {
+    background: rgba(255, 255, 255, 0.05);
+    border: 2px solid rgba(255, 255, 255, 0.1);
+    border-radius: 16px;
+    transition: all 0.2s ease;
+    outline: none;
+    -webkit-tap-highlight-color: transparent;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    width: 70px;
+    height: 70px;
+    box-sizing: border-box;
+}
+
+.btn-text-style:active {
+    transform: scale(0.92);
+}
+
+.btn-text-style.active {
+    background: rgba(255, 255, 255, 0.15);
+    border-color: rgba(255, 255, 255, 0.8);
+    box-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
+}
+
+.mini-text-demo {
+    font-family: "Lalezar", sans-serif;
+    font-size: 28px;
+    line-height: 1;
+    pointer-events: none;
+    text-transform: uppercase;
+}
+
+.mini-text-demo.default {
+    color: #ffffff;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+.mini-text-demo.text-style-neon {
+    color: #0ff;
+    text-shadow: 0 0 5px rgba(0, 255, 255, 0.8);
+}
+
+.mini-text-demo.text-style-radio {
+    color: #ffffff;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.mini-text-demo.text-style-radio::before {
+    content: "";
+    display: block;
+    width: 8px;
+    height: 8px;
+    background-color: #ff2a2a;
+    border-radius: 50%;
+    position: relative;
+    top: -2px;
+    box-shadow: 0 0 5px #ff2a2a;
+    animation: blink-radio 1.5s ease-in-out infinite;
+}
+
+
+.mini-play-btn.style-dark .mini-play-icon {
+    fill: rgba(255, 255, 255, 0.6);
+    filter: drop-shadow(1px 2px 3px rgba(0, 0, 0, 0.8));
+}
+
+.mini-play-btn.style-neon .mini-play-icon {
+    fill: #0ff;
+    filter: drop-shadow(0 0 4px #0ff);
 }
