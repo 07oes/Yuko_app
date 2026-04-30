@@ -144,6 +144,30 @@ button,
     /* pointer-events: none; */ /* Убираем отсюда, чтобы кнопка была кликабельной */
 }
 
+.style-title-group {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.beta-badge {
+    background-color: rgb(255, 0, 0);
+    color: white;
+    font-family: 'Roboto', sans-serif;
+    font-size: 16px;
+    font-weight: 500;
+    padding: 2px 8px;
+    border-radius: 12px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-top: 2px;
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+    pointer-events: none;
+}
+
 #music_styles_label, #button_for_music, #nav_dots, .volume-control-pc {
     transition: opacity 0.2s ease-out;
 }
