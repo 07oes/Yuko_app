@@ -69,7 +69,7 @@ const masterStations = [
     },
     { 
         id: 'check_witcher_lofi', name: 'THE WITCHER LOFI REMIX', bgClass: 'img-the-witcher-lofi-remix', 
-        audio: generateCloudflareUrls(CF_BASE_URL, 'The Witcher: LOFI REMIX', 'ms-the-witcher-lofi-remix ', 3)
+        audio: generateCloudflareUrls(CF_BASE_URL, 'The Witcher: LOFI REMIX', 'ms-the-witcher-lofi-remix ', 24)
     }
     ];
 
@@ -366,7 +366,16 @@ if (additionalBtn && additionalModal) {
 
 masterStations.forEach(station => {
     const checkbox = document.getElementById(station.id);
-    if (checkbox) checkbox.addEventListener('change', buildPlaylist);
+    if (checkbox) {
+        const savedState = localStorage.getItem('checkbox_' + station.id);
+        if (savedState !== null) {
+            checkbox.checked = savedState === 'true';
+        }
+        checkbox.addEventListener('change', (e) => {
+            localStorage.setItem('checkbox_' + station.id, e.target.checked);
+            buildPlaylist(e);
+        });
+    }
 });
 
 buildPlaylist();
@@ -386,34 +395,36 @@ window.addEventListener('resize', () => {
 const playStyleBtns = document.querySelectorAll('.btn-play-style');
 const buttonForMusic = document.getElementById('button_for_music');
 
+function applyPlayStyle(selectedStyle) {
+    const volumeControl = document.querySelector('.volume-control-pc');
+    buttonForMusic.classList.remove('style-dark', 'style-neon');
+    if (volumeControl) {
+        volumeControl.classList.remove('style-dark', 'style-neon');
+    }
+    if (selectedStyle !== 'default') {
+        buttonForMusic.classList.add(selectedStyle);
+        if (volumeControl) {
+            volumeControl.classList.add(selectedStyle);
+        }
+    }
+    playStyleBtns.forEach(b => {
+        if (b.getAttribute('data-style') === selectedStyle) {
+            b.classList.add('active');
+        } else {
+            b.classList.remove('active');
+        }
+    });
+}
+
 if (playStyleBtns.length > 0 && buttonForMusic) {
+    const savedPlayStyle = localStorage.getItem('playBtnStyle') || 'default';
+    applyPlayStyle(savedPlayStyle);
+
     playStyleBtns.forEach(btn => {
         btn.addEventListener('click', () => {
-            // Убираем active у всех кнопок
-            playStyleBtns.forEach(b => b.classList.remove('active'));
-            // Добавляем active нажатой
-            btn.classList.add('active');
-
-            // Получаем выбранный стиль
             const selectedStyle = btn.getAttribute('data-style');
-
-            const volumeControl = document.querySelector('.volume-control-pc');
-
-            // Очищаем текущие стили (кроме базовых классов, если они есть, но у нас их нет, только id)
-            // Надежнее просто удалить известные классы
-            buttonForMusic.classList.remove('style-dark', 'style-neon');
-            if (volumeControl) {
-                volumeControl.classList.remove('style-dark', 'style-neon');
-            }
-        
-
-            // Если не дефолтный, добавляем новый класс
-            if (selectedStyle !== 'default') {
-                buttonForMusic.classList.add(selectedStyle);
-                if (volumeControl) {
-                    volumeControl.classList.add(selectedStyle);
-                }
-            }
+            localStorage.setItem('playBtnStyle', selectedStyle);
+            applyPlayStyle(selectedStyle);
         });
     });
 }
@@ -421,24 +432,29 @@ if (playStyleBtns.length > 0 && buttonForMusic) {
 //! === 9. СМЕНА СТИЛЯ ТЕКСТА ===
 const textStyleBtns = document.querySelectorAll('.btn-text-style');
 
+function applyTextStyle(selectedStyle) {
+    textElement.classList.remove('text-style-neon', 'text-style-radio');
+    if (selectedStyle !== 'default') {
+        textElement.classList.add(selectedStyle);
+    }
+    textStyleBtns.forEach(b => {
+        if (b.getAttribute('data-style') === selectedStyle) {
+            b.classList.add('active');
+        } else {
+            b.classList.remove('active');
+        }
+    });
+}
+
 if (textStyleBtns.length > 0 && textElement) {
+    const savedTextStyle = localStorage.getItem('textAppStyle') || 'default';
+    applyTextStyle(savedTextStyle);
+
     textStyleBtns.forEach(btn => {
         btn.addEventListener('click', () => {
-            // Убираем active у всех кнопок
-            textStyleBtns.forEach(b => b.classList.remove('active'));
-            // Добавляем active нажатой
-            btn.classList.add('active');
-
-            // Получаем выбранный стиль
             const selectedStyle = btn.getAttribute('data-style');
-
-            // Очищаем текущие стили
-            textElement.classList.remove('text-style-neon', 'text-style-radio');
-
-            // Если не дефолтный, добавляем новый класс
-            if (selectedStyle !== 'default') {
-                textElement.classList.add(selectedStyle);
-            }
+            localStorage.setItem('textAppStyle', selectedStyle);
+            applyTextStyle(selectedStyle);
         });
     });
 }
